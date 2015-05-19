@@ -6,7 +6,7 @@ import java.util.Scanner;
 import AlgorithmMatrix.AlgorithmMatrixMultiplication.MultiplyAlgorithm;
 import AlgorithmMatrix.AlgorithmMatrixMultiplication.MultiplyDynamic;
 import AlgorithmMatrix.determine.Dimensions;
-import AlgorithmMatrix.generator.RandomMatrixGenerator;
+import AlgorithmMatrix.generator.RandomDimensionGenerator;
 
 public class MultiplyRun {
 
@@ -34,7 +34,7 @@ public class MultiplyRun {
 		input = in.nextLine();
 
 		if (input.equalsIgnoreCase("Yes")) {
-			RandomMatrixGenerator generator = new RandomMatrixGenerator();
+			RandomDimensionGenerator generator = new RandomDimensionGenerator();
 			p = generator.generate(total);
 		} else {
 			Dimensions d = new Dimensions();

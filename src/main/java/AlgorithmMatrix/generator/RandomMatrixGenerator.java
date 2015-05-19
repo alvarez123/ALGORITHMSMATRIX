@@ -3,23 +3,22 @@ package AlgorithmMatrix.generator;
 import java.util.Random;
 
 public class RandomMatrixGenerator {
-
+	
+	private static final int BOUND = 1000;
+	
 	private Random random;
-	private static final int NUM_OF_ITERATIONS=5;
-
-	public RandomMatrixGenerator() {
+	
+	public RandomMatrixGenerator(){
 		random = new Random();
 	}
-
-
-	public int[] generate(int n) {
-		int[] array = new int[n+1];
-
-		array[0]=random.nextInt(95)+NUM_OF_ITERATIONS;
-		for (int i = 0; i < n; i++)
-			array[i+1] = random.nextInt(95)+NUM_OF_ITERATIONS;
-
-		return array;
+	
+	public int[][] generate(int m, int n){
+		int[][] matrix = new int[m][n];
+		
+		for(int i = 0; i < m; i++)
+			for(int j = 0; j < n; j++)
+				matrix[m][n] = random.nextInt(BOUND);
+		
+		return matrix;
 	}
-
 }
