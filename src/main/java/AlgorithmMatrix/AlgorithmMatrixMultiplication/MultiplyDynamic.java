@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import AlgorithmMatrix.multiplier.MatrixMultiplier;
 
-public class MultiplyDynamic implements MultiplyAlgorithm {
+public class MultiplyDynamic {
 
 	private int[][] m;
 	private int[][] s;
@@ -17,7 +17,6 @@ public class MultiplyDynamic implements MultiplyAlgorithm {
 		totalRuntimeMilliseconds=0;
 	}
 
-	@Override
 	public int[][] multiply(ArrayList<int[][]> matrices, int[] p) {
 		long startTime = System.currentTimeMillis();
 		n = p.length - 1;
@@ -72,13 +71,10 @@ public class MultiplyDynamic implements MultiplyAlgorithm {
 		return printOptimalParens(1, n);
 	}
 
-	@Override
 	public int getNumberOfMultiplication() {
 		return m[1][n];
 	}
-	public int getnumber(){ return mu.getNumberOfMultiplications();}
-
-	@Override
+	
 	public long getRuntimeMilliseconds() {
 		return totalRuntimeMilliseconds;
 	}

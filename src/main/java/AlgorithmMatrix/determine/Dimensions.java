@@ -33,6 +33,7 @@ public class Dimensions {
 			System.out.println("Please enter a positive value:");
 			r = in.nextInt();
 		}
+		in.close();
 		return r;
 
 	}

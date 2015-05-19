@@ -1,10 +1,14 @@
 package AlgorithmMatrix.MultiplyTest;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Random;
 import java.util.Scanner;
 
-import AlgorithmMatrix.AlgorithmMatrixMultiplication.MultiplyAlgorithm;
 import AlgorithmMatrix.AlgorithmMatrixMultiplication.MultiplyDynamic;
 import AlgorithmMatrix.determine.Dimensions;
 import AlgorithmMatrix.generator.RandomDimensionGenerator;
@@ -12,6 +16,9 @@ import AlgorithmMatrix.generator.RandomMatrixGenerator;
 import AlgorithmMatrix.multiplier.MatrixMultiplier;
 
 public class MultiplyRun {
+	
+	private static final String resultsFileName = "results.txt";
+	private static final String statisticsFileName = "runtime_statistics.txt";
 
 	public static void main(String[] args) {
 		final int NUM_OF_ITERATIONS = 5;
@@ -59,18 +66,78 @@ public class MultiplyRun {
 
 		   
 		  System.out.println("\nDYNAMIC");
-		  MultiplyAlgorithm dynamic = new MultiplyDynamic();
-		  dynamic.multiply(matrixlist, p);
+		  MultiplyDynamic dynamic = new MultiplyDynamic();
+		  int[][] result = dynamic.multiply(matrixlist, p);
 		 
 		  System.out.println("Optimal Parenthesization");
 		  System.out.println(dynamic.toString());
 		  
 		  System.out.println("Minimum multiplication cost");
 		  System.out.println(dynamic.getNumberOfMultiplication());
-		  System.out.println(((MultiplyDynamic) dynamic).getnumber());
 		  System.out.println("Dynamic Run time:"+dynamic.getRuntimeMilliseconds());
 		 
-
+		  in.close();
+		  BufferedWriter writer = null;
+		try {
+			writer = new BufferedWriter(new FileWriter(new File(resultsFileName)));
+			writer.write("Input Arrays:");
+			writer.newLine();
+			for(int i = 0; i < matrixlist.size(); i++){
+				writer.write(Arrays.toString(matrixlist.get(i)));
+				writer.newLine();
+			}
+			writer.write("Output Array:");
+			writer.write(Arrays.toString(result));
+			writer.newLine();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} finally {
+			
+			if(writer != null)
+				try {
+					writer.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+		}
+		
+		try {
+			writer = new BufferedWriter(new FileWriter(new File(statisticsFileName)));
+			writer.write("Matrix sizes: ");
+			for(int i = 0; i < matrixlist.size(); i++){
+				int[][] currMatrix = matrixlist.get(i);
+				writer.write(String.format("A%d %d x %d; ", i + 1, currMatrix.length, currMatrix[0].length));
+			}
+			writer.newLine();
+			writer.newLine();
+			writer.write("In Order Multiplication");
+			writer.newLine();
+			writer.write("Number of multiplication: " + bruteforce.getNumberOfMultiplications());
+			writer.newLine();
+			writer.write("Run time (msec): " + bruteforce.getTotalRuntimeMilliseconds());
+			writer.newLine();
+			writer.newLine();
+			writer.write("Multiplication with Dynamic Programming");
+			writer.newLine();
+			//Table for dynamic programming
+			writer.newLine();
+			writer.write("Matrices with paranthesis: " + dynamic.toString());
+			writer.newLine();
+			writer.write("Number of multiplication: " + dynamic.getNumberOfMultiplication());
+			writer.newLine();
+			writer.write("Run time (msec): " + dynamic.getRuntimeMilliseconds());
+			writer.newLine();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} finally {
+			if(writer != null)
+				try {
+					writer.close();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+		}
 	}
 
 	public static void matrixwithDimension(int[] p, int total_matrices) {
