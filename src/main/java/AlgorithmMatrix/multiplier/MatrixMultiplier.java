@@ -25,7 +25,7 @@ public class MatrixMultiplier {
 		return result;
 	}
 	
-	int[][] multiplyTwoMatrices(int[][] matrix1, int[][] matrix2){
+	 public int[][] multiplyTwoMatrices(int[][] matrix1, int[][] matrix2){
 		if(matrix1[0].length != matrix2.length)
 			throw new IllegalArgumentException("Column size of first matrix must be equal to row size of second matrix.");
 		int m = matrix1.length, n = matrix1[0].length, k = matrix2[0].length; //matrix1 -> MxN, matrix2 -> NxK

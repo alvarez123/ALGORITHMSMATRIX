@@ -1,22 +1,32 @@
 package AlgorithmMatrix.AlgorithmMatrixMultiplication;
 
+import java.util.ArrayList;
+
+import AlgorithmMatrix.multiplier.MatrixMultiplier;
+
 public class MultiplyDynamic implements MultiplyAlgorithm {
 
 	private int[][] m;
 	private int[][] s;
 	private int n;
+	private MatrixMultiplier mu;
+	private long totalRuntimeMilliseconds;
 
 	public MultiplyDynamic() {
-
+		mu=new MatrixMultiplier();
+		totalRuntimeMilliseconds=0;
 	}
 
 	@Override
-	public void multiply(int[] p) {
+	public int[][] multiply(ArrayList<int[][]> matrices, int[] p) {
+		long startTime = System.currentTimeMillis();
 		n = p.length - 1;
 		m = new int[n + 1][n + 1];
 		s = new int[n + 1][n + 1];
 		matrixChainOrder(p);
-
+		int result[][]= multiplication(matrices, 1, n);
+		totalRuntimeMilliseconds = System.currentTimeMillis() - startTime;
+		return result;
 	}
 
 	private void matrixChainOrder(int[] p) {
@@ -40,6 +50,16 @@ public class MultiplyDynamic implements MultiplyAlgorithm {
 		}
 	}
 
+	private int[][] multiplication(ArrayList<int[][]> matrices, int i, int j) {
+		if (i < j) {
+			int[][] C = multiplication(matrices, i, s[i][j]);
+			int[][] D = multiplication(matrices, s[i][j] + 1, j);
+			return mu.multiplyTwoMatrices(C, D);
+		} else
+			return matrices.get(i-1);
+
+	}
+
 	private String printOptimalParens(int i, int j) {
 		if (i == j)
 			return "A[" + i + "]";
@@ -56,11 +76,11 @@ public class MultiplyDynamic implements MultiplyAlgorithm {
 	public int getNumberOfMultiplication() {
 		return m[1][n];
 	}
+	public int getnumber(){ return mu.getNumberOfMultiplications();}
 
 	@Override
 	public long getRuntimeMilliseconds() {
-		// TODO Auto-generated method stub
-		return 0;
+		return totalRuntimeMilliseconds;
 	}
 
 }

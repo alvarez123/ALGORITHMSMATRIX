@@ -1,8 +1,10 @@
 package AlgorithmMatrix.AlgorithmMatrixMultiplication;
 
+import java.util.ArrayList;
+
 public interface MultiplyAlgorithm {
 	
-	public void multiply(final int[] array);
+	public int[][] multiply(ArrayList<int[][]> matrices, int[] array);
 	public int getNumberOfMultiplication();
 	public long getRuntimeMilliseconds();
 
