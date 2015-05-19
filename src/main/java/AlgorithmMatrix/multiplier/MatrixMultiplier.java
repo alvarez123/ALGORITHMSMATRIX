@@ -15,21 +15,21 @@ public class MatrixMultiplier {
 		numberOfMultiplications = 0;
 	}
 	
-	public int[][] multiplyMatrices(ArrayList<int[][]> matrices) {
+	public long[][] multiplyMatrices(ArrayList<long[][]> matrices) {
 		reset();
-		long startTime = System.currentTimeMillis();
-		int[][] result = multiplyTwoMatrices(matrices.get(0), matrices.get(1));
+		long startTime = System.nanoTime();
+		long[][] result = multiplyTwoMatrices(matrices.get(0), matrices.get(1));
 		for(int i = 2; i < matrices.size() - 1; i++)
 			result = multiplyTwoMatrices(result, matrices.get(i));
-		totalRuntimeMilliseconds = System.currentTimeMillis() - startTime;
+		totalRuntimeMilliseconds = System.nanoTime() - startTime;
 		return result;
 	}
 	
-	 public int[][] multiplyTwoMatrices(int[][] matrix1, int[][] matrix2){
+	 public long[][] multiplyTwoMatrices(long[][] matrix1, long[][] matrix2){
 		if(matrix1[0].length != matrix2.length)
 			throw new IllegalArgumentException("Column size of first matrix must be equal to row size of second matrix.");
 		int m = matrix1.length, n = matrix1[0].length, k = matrix2[0].length; //matrix1 -> MxN, matrix2 -> NxK
-		int[][] result = new int[m][k];
+		long[][] result = new long[m][k];
 		
 		for(int i = 0; i < m; i++){
 			for(int j = 0; j < k; j++){

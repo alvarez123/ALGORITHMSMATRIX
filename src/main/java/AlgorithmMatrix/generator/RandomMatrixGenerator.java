@@ -4,7 +4,7 @@ import java.util.Random;
 
 public class RandomMatrixGenerator {
 
-	private static final int BOUND = 1000;
+	private static final int BOUND = 20;
 
 	private Random random;
 
@@ -12,8 +12,8 @@ public class RandomMatrixGenerator {
 		random = new Random();
 	}
 
-	public int[][] generate(int m, int n) {
-		int[][] matrix = new int[m][n];
+	public long[][] generate(int m, int n) {
+		long[][] matrix = new long[m][n];
 
 		for (int i = 0; i < m; i++)
 			for (int j = 0; j < n; j++)

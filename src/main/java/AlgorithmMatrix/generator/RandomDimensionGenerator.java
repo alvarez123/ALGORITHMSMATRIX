@@ -16,7 +16,7 @@ public class RandomDimensionGenerator {
 
 		array[0] = random.nextInt(95) + NUM_OF_ITERATIONS;
 		for (int i = 0; i < n; i++)
-			array[i + 1] = random.nextInt(95) + NUM_OF_ITERATIONS;
+			array[i + 1] = random.nextInt(11) + NUM_OF_ITERATIONS;
 
 		return array;
 	}

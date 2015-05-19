@@ -16,12 +16,12 @@ import AlgorithmMatrix.generator.RandomMatrixGenerator;
 import AlgorithmMatrix.multiplier.MatrixMultiplier;
 
 public class MultiplyRun {
-	
+
 	private static final String resultsFileName = "results.txt";
 	private static final String statisticsFileName = "runtime_statistics.txt";
 
 	public static void main(String[] args) {
-		final int NUM_OF_ITERATIONS = 5;
+		final int NUM_OF_ITERATIONS = 3;
 		int total;
 		Random r = new Random();
 		Scanner in = new Scanner(System.in);
@@ -35,13 +35,14 @@ public class MultiplyRun {
 		} else {
 			System.out.println("How many matrices would you like to multiply?");
 			total = in.nextInt();
+			in.nextLine();
 		}
 
 		int p[] = new int[total + 1];
 
 		System.out
 				.println("Dimension of Matrices: Random or Manual?Random=Yes");
-		
+
 		input = in.nextLine();
 
 		if (input.equalsIgnoreCase("Yes")) {
@@ -53,40 +54,41 @@ public class MultiplyRun {
 		}
 
 		matrixwithDimension(p, total);
-		ArrayList<int[][]> matrixlist = matrixlist(p);
+		ArrayList<long[][]> matrixlist = matrixlist(p);
 
 		MatrixMultiplier bruteforce = new MatrixMultiplier();
 		bruteforce.multiplyMatrices(matrixlist);
-        
+
 		System.out.println("\nBRUTE FORCE");
 		System.out.println("Brute force number of multiplication:"
 				+ bruteforce.getNumberOfMultiplications());
 		System.out.println("Brute force Run time:"
 				+ bruteforce.getTotalRuntimeMilliseconds());
 
-		   
-		  System.out.println("\nDYNAMIC");
-		  MultiplyDynamic dynamic = new MultiplyDynamic();
-		  int[][] result = dynamic.multiply(matrixlist, p);
-		 
-		  System.out.println("Optimal Parenthesization");
-		  System.out.println(dynamic.toString());
-		  
-		  System.out.println("Minimum multiplication cost");
-		  System.out.println(dynamic.getNumberOfMultiplication());
-		  System.out.println("Dynamic Run time:"+dynamic.getRuntimeMilliseconds());
-		 
-		  in.close();
-		  BufferedWriter writer = null;
+		System.out.println("\nDYNAMIC");
+		MultiplyDynamic dynamic = new MultiplyDynamic();
+		long[][] result = dynamic.multiply(matrixlist, p);
+
+		System.out.println("Optimal Parenthesization");
+		System.out.println(dynamic.toString());
+
+		System.out.println("Minimum multiplication cost");
+		System.out.println(dynamic.getNumberOfMultiplication());
+		System.out.println("Dynamic Run time:"
+				+ dynamic.getRuntimeMilliseconds());
+
+		in.close();
+		BufferedWriter writer = null;
 		try {
-			writer = new BufferedWriter(new FileWriter(new File(resultsFileName)));
+			writer = new BufferedWriter(new FileWriter(
+					new File(resultsFileName)));
 			writer.write("Input Matrices:");
 			writer.newLine();
-			for(int i = 0; i < matrixlist.size(); i++){
+			for (int i = 0; i < matrixlist.size(); i++) {
 				writer.write("A" + (i + 1) + ": ");
 				writer.newLine();
-				int[][] currentArray = matrixlist.get(i);
-				for(int[] arr : currentArray){
+				long[][] currentArray = matrixlist.get(i);
+				for (long[] arr : currentArray) {
 					writer.write(Arrays.toString(arr));
 					writer.newLine();
 					writer.newLine();
@@ -96,7 +98,7 @@ public class MultiplyRun {
 			}
 			writer.write("Output Matrix:");
 			writer.newLine();
-			for(int[] arr : result){
+			for (long[] arr : result) {
 				writer.write(Arrays.toString(arr));
 				writer.newLine();
 				writer.newLine();
@@ -104,45 +106,68 @@ public class MultiplyRun {
 		} catch (IOException e) {
 			e.printStackTrace();
 		} finally {
-			
-			if(writer != null)
+
+			if (writer != null)
 				try {
 					writer.close();
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
 		}
-		
+
 		try {
-			writer = new BufferedWriter(new FileWriter(new File(statisticsFileName)));
+			writer = new BufferedWriter(new FileWriter(new File(
+					statisticsFileName)));
 			writer.write("Matrix sizes: ");
-			for(int i = 0; i < matrixlist.size(); i++){
-				int[][] currMatrix = matrixlist.get(i);
-				writer.write(String.format("A%d %d x %d; ", i + 1, currMatrix.length, currMatrix[0].length));
+			for (int i = 0; i < matrixlist.size(); i++) {
+				long[][] currMatrix = matrixlist.get(i);
+				writer.write(String.format("A%d %d x %d; ", i + 1,
+						currMatrix.length, currMatrix[0].length));
 			}
+			int[][] s = dynamic.getS();
+			int[][] m = dynamic.getM();
 			writer.newLine();
 			writer.newLine();
 			writer.write("In Order Multiplication");
 			writer.newLine();
-			writer.write("Number of multiplication: " + bruteforce.getNumberOfMultiplications());
+			writer.write("Number of multiplication: "
+					+ bruteforce.getNumberOfMultiplications());
 			writer.newLine();
-			writer.write("Run time (msec): " + bruteforce.getTotalRuntimeMilliseconds());
+			writer.write("Run time (nanosec): "
+					+ bruteforce.getTotalRuntimeMilliseconds());
 			writer.newLine();
 			writer.newLine();
 			writer.write("Multiplication with Dynamic Programming");
 			writer.newLine();
-			//Table for dynamic programming
+			writer.write("Table for dynamic programming");
+			// Table for dynamic programming
 			writer.newLine();
+			writer.write("M matrice:");
+			writer.newLine();
+			for (int[] arr : m) {
+				writer.write(Arrays.toString(arr));
+				writer.newLine();
+				writer.newLine();
+			}
+			writer.write("S matrice:");
+			writer.newLine();
+			for (int[] arr : s) {
+				writer.write(Arrays.toString(arr));
+				writer.newLine();
+				writer.newLine();
+			}
 			writer.write("Matrices with paranthesis: " + dynamic.toString());
 			writer.newLine();
-			writer.write("Number of multiplication: " + dynamic.getNumberOfMultiplication());
+			writer.write("Number of multiplication: "
+					+ dynamic.getNumberOfMultiplication());
 			writer.newLine();
-			writer.write("Run time (msec): " + dynamic.getRuntimeMilliseconds());
+			writer.write("Run time (nanosec): "
+					+ dynamic.getRuntimeMilliseconds());
 			writer.newLine();
 		} catch (IOException e) {
 			e.printStackTrace();
 		} finally {
-			if(writer != null)
+			if (writer != null)
 				try {
 					writer.close();
 				} catch (IOException e) {
@@ -161,13 +186,13 @@ public class MultiplyRun {
 		}
 	}
 
-	public static ArrayList<int[][]> matrixlist(int[] dimensions) {
+	public static ArrayList<long[][]> matrixlist(int[] dimensions) {
 
 		RandomMatrixGenerator generator = new RandomMatrixGenerator();
-		ArrayList<int[][]> matrixlist = new ArrayList<int[][]>();
+		ArrayList<long[][]> matrixlist = new ArrayList<long[][]>();
 
 		for (int i = 0; i < dimensions.length - 1; i++) {
-			int[][] matrix = generator.generate(dimensions[i],
+			long[][] matrix = generator.generate(dimensions[i],
 					dimensions[i + 1]);
 			matrixlist.add(matrix);
 		}

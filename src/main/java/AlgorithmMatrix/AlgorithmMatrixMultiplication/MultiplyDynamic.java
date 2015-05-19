@@ -17,14 +17,22 @@ public class MultiplyDynamic {
 		totalRuntimeMilliseconds=0;
 	}
 
-	public int[][] multiply(ArrayList<int[][]> matrices, int[] p) {
-		long startTime = System.currentTimeMillis();
+	public int[][] getM() {
+		return m;
+	}
+
+	public int[][] getS() {
+		return s;
+	}
+
+	public long[][] multiply(ArrayList<long[][]> matrices, int[] p) {
+		long startTime = System.nanoTime();
 		n = p.length - 1;
 		m = new int[n + 1][n + 1];
 		s = new int[n + 1][n + 1];
 		matrixChainOrder(p);
-		int result[][]= multiplication(matrices, 1, n);
-		totalRuntimeMilliseconds = System.currentTimeMillis() - startTime;
+		long result[][]= multiplication(matrices, 1, n);
+		totalRuntimeMilliseconds = System.nanoTime() - startTime;
 		return result;
 	}
 
@@ -49,10 +57,10 @@ public class MultiplyDynamic {
 		}
 	}
 
-	private int[][] multiplication(ArrayList<int[][]> matrices, int i, int j) {
+	private long[][] multiplication(ArrayList<long[][]> matrices, int i, int j) {
 		if (i < j) {
-			int[][] C = multiplication(matrices, i, s[i][j]);
-			int[][] D = multiplication(matrices, s[i][j] + 1, j);
+			long[][] C = multiplication(matrices, i, s[i][j]);
+			long[][] D = multiplication(matrices, s[i][j] + 1, j);
 			return mu.multiplyTwoMatrices(C, D);
 		} else
 			return matrices.get(i-1);

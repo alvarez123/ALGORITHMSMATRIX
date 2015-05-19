@@ -1,11 +1,29 @@
-Matrix sizes: A1 23 x 35; A2 35 x 12; A3 12 x 53; A4 53 x 10; A5 10 x 12; A6 12 x 91; A7 91 x 36; A8 36 x 6; 
+Matrix sizes: A1 25 x 15; A2 15 x 10; A3 10 x 9; 
 
 In Order Multiplication
-Number of multiplication: 139702
-Run time (msec): 11
+Number of multiplication: 3750
+Run time (nanosec): 164212
 
 Multiplication with Dynamic Programming
+Table for dynamic programming
+M matrice:
+[0, 0, 0, 0]
 
-Matrices with paranthesis: (A[1](A[2](A[3](A[4](A[5](A[6](A[7]A[8])))))))
-Number of multiplication: 41274
-Run time (msec): 0
+[0, 0, 3750, 4725]
+
+[0, 0, 0, 1350]
+
+[0, 0, 0, 0]
+
+S matrice:
+[0, 0, 0, 0]
+
+[0, 0, 1, 1]
+
+[0, 0, 0, 2]
+
+[0, 0, 0, 0]
+
+Matrices with paranthesis: (A[1](A[2]A[3]))
+Number of multiplication: 4725
+Run time (nanosec): 216811
