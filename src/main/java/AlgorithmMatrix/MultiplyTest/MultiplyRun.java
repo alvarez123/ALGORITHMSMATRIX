@@ -80,15 +80,27 @@ public class MultiplyRun {
 		  BufferedWriter writer = null;
 		try {
 			writer = new BufferedWriter(new FileWriter(new File(resultsFileName)));
-			writer.write("Input Arrays:");
+			writer.write("Input Matrices:");
 			writer.newLine();
 			for(int i = 0; i < matrixlist.size(); i++){
-				writer.write(Arrays.toString(matrixlist.get(i)));
+				writer.write("A" + (i + 1) + ": ");
+				writer.newLine();
+				int[][] currentArray = matrixlist.get(i);
+				for(int[] arr : currentArray){
+					writer.write(Arrays.toString(arr));
+					writer.newLine();
+					writer.newLine();
+				}
+				writer.newLine();
 				writer.newLine();
 			}
-			writer.write("Output Array:");
-			writer.write(Arrays.toString(result));
+			writer.write("Output Matrix:");
 			writer.newLine();
+			for(int[] arr : result){
+				writer.write(Arrays.toString(arr));
+				writer.newLine();
+				writer.newLine();
+			}
 		} catch (IOException e) {
 			e.printStackTrace();
 		} finally {
