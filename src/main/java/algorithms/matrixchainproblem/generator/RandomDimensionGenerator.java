@@ -1,4 +1,4 @@
-package AlgorithmMatrix.generator;
+package algorithms.matrixchainproblem.generator;
 
 import java.util.Random;
 
