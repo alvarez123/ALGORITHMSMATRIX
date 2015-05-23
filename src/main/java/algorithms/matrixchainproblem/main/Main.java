@@ -9,7 +9,7 @@ import java.util.Arrays;
 import java.util.Random;
 import java.util.Scanner;
 
-import algorithms.matrixchainproblem.AlgorithmMatrixMultiplication.MultiplyDynamic;
+import algorithms.matrixchainproblem.dynamicalgorithm.MultiplyDynamic;
 import algorithms.matrixchainproblem.generator.RandomDimensionGenerator;
 
 public class Main {

@@ -1,4 +1,4 @@
-package algorithms.matrixchainproblem.AlgorithmMatrixMultiplication;
+package algorithms.matrixchainproblem.dynamicalgorithm;
 
 
 public class MultiplyDynamic {
