@@ -24,7 +24,7 @@ public class Main {
 		int numberOfMatrices = in.nextInt();
 		in.nextLine();
 		if(numberOfMatrices == 0) {
-			numberOfMatrices = random.nextInt(96) + MINIMUM_NUMBER_OF_MATRICES; 
+			numberOfMatrices = random.nextInt(6) + MINIMUM_NUMBER_OF_MATRICES; 
 			System.out.println("Number of matrices: " + numberOfMatrices);
 		}
 		
